@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% load static %}
+
+    <title>LayoutLab</title>
+    
+    <!-- Hotjar Tracking Code 
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid: YOUR_HOTJAR_ID, hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+-->
+
+<script>
+    const saveLayoutUrl = "{% url 'save_layout' %}";
+
+</script>
+        <!-- Style Sheets -->
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    
+    <!-- External Links -->
+        <!-- Font Awesome CDN -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <!-- Google Fonts-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Dancing+Script:wght@400..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300..700&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+
+        <!-- App Scripts -->
+   <!-- <script src="{% static 'js/training.js' %}" defer></script>-->
+    <script src="{% static 'js/scripts.js' %}" defer></script>
+    <script src="{% static 'js/preview.js' %}" defer></script>
+    <script src="{% static 'js/modal.js' %}" defer></script>
+    <script src="{% static 'js/style-scanner.js' %}" defer></script>
+
+
+        <!-- External Scripts-->
+    <!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.4/purify.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+        
+
+
+
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="logo-fixed" id="logo-fixed">LayoutLab</div>
+    {% include 'toptoolbar.html' %}
+
+    {% include 'modal.html' %}
+    <div class="preview-tips">
+        <div id="msg-container">LayoutLab</div></div>
+    <div class="scrollable-area">
+        <div class="container" id="container">
+            <div class="grid-container" id="grid-container"></div>
+        </div>
+    </div>
+    <div id="preview_mode" class="preview-tips-right right">
+        <h1 class="header-h1 tip" id="tip-3">
+                4.Preview your design</h1>
+        <button type="button" id="hideLayout" class="preview-button right">Preview</button>
+    </div>
+    <h1 class="header-h1 tip last-tip" id="tip-5">5. Save your layout</h1> 
+
+            {% include 'savetoolbar.html' %}
+
+    <div id="generated-styles"></div>
+    {% include 'footer.html' %}
+</body>
+</html>

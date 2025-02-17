@@ -1,0 +1,16 @@
+<div id="container-finish-toolbar" class="container-finish-toolbar">
+<div id="container-ftc" class="container-ftc">
+    <button id="saveButton">Save Layout</button>
+    {% if user.is_staff %}
+        <button id="saveTemplateButton">Save Template</button>
+    {% endif %}
+    <button id="openSavedFilesButton">Load Layout</button>
+    <button id="clear-layout-button" class="clear-layout-button" data-action="clear-layout">Clear Layout</button>
+    <button id="saveAsPdfButton">Save as PDF</button>
+    <label for="orientationSelect" class="visually-hidden">Choose PDF Orientation:</label>
+    <select id="orientationSelect">
+        <option value="p">Portrait</option>
+        <option value="l">Landscape</option>
+    </select>
+</div>
+</div>

@@ -1,0 +1,125 @@
+<div id="container-toolbar-container" class="container-toolbar">
+    <div class="container-top-toolbar">
+        <div class="ct-nav">
+            <div class="ct-row">
+                <div class="ct-row">
+                    <!-- Title -->
+                <div class="ct-item toolbar-layout-name">
+                    <label for="layoutName" class="blue-text">Layout Name</label>
+                    <input type="text" id="layoutName" value="Untitled-layout" class="input-container-text" data-action="layoutName">
+                </div>
+                <!-- Preset -->
+                <div class="ct-item">
+                    <label for="presetSelect" class="visually-hidden">Preset Layout</label>
+                    <select id="presetSelect" onchange="updatePresetSize()">
+                        <!-- Screen Sizes -->
+                        <option value="screen-600">Small (600px)</option>
+                        <option value="screen-800">Medium (800px)</option>
+                        <option value="screen-1000">Large (1000px)</option>
+                        <option value="screen-1200">Full (1200px)</option>
+                    
+                        <!-- Print Sizes -->
+                        <option value="print-210-297">A4 (210mm × 297mm)</option>
+                        <option value="print-148-210">A5 (148mm × 210mm)</option>
+                        <option value="print-297-420">A3 (297mm × 420mm)</option>
+                        <option value="print-215.9-279.4">Letter (215.9mm × 279.4mm)</option>
+                        <option value="print-215.9-355.6">Legal (215.9mm × 355.6mm)</option>
+                    </select>
+                    
+                </div>
+                    <!-- Container Size -->
+                    
+                    <div class="ct-item">
+                        <label for="layoutSizeNum" class="yellow-text">Layout Width</label>
+                        <input type="number" id="layoutSizeNum" value="1" min="1" max="5000"  class="input-container" data-action="update-layout-size">
+                        <input type="range" id="layoutSizeRange" value="1" min="1" max="5000" class="range-input" data-action="update-layout-size">
+                    </div>
+                    <div class="ct-item">
+                            <label for="unitSelect" class="yellow-text">Unit</label>
+                                <select id="unitSelect" class="unit" onchange="updateUnit()">
+                                <option value="px">px</option> 
+                                <option value="%">%</option>
+                                <option value="em">em</option>
+                                <option value="rem">rem</option>
+                                <option value="mm">mm</option>
+                                <option value="cm">cm</option>
+    
+                            </select>
+                        </div>
+                        <div class="ct-item">
+                        <label for="layoutHeightNum" class="yellow-text">Layout Height</label>
+                        <input type="number" id="layoutHeightNum" value="1" min="1" max="5000"  class="input-container" data-action="update-layout-hsize">
+                        <input type="range" id="layoutHeightRange" value="1" min="1" max="5000"  class="range-input" data-action="update-layout-hsize">
+                    </div>
+                  
+                    
+                    
+                    <div class="hide">
+                            <label for="layoutWidth" class="yellow-text hide">Layout Width</label>
+                    <input type="number" id="layoutWidth" value="1" class="input-container hide" data-action="update-layout-width">
+
+                    <label for="layoutHeight" class="yellow-text hide">Layout Height</label>
+                    <input type="number" id="layoutHeight" value="1" class="input-container hide" data-action="update-layout-height">
+                    </div>
+                    <!-- Cols, Rows, Box, Gap -->
+                <div class="ct-item">
+                    <label for="columns" class="yellow-text">Columns</label>
+                    <input type="number" id="columns" min="1" max="6" value="1" class="input-container" data-action="update-columns">
+                    <input type="range" id="columnsRange" min="1" max="6" value="1" class="range-input" data-action="update-columns">
+                </div>
+
+                <div class="ct-item">
+                    <label for="rows" class="orange-text">Rows</label>
+                    <input type="number" id="rows" min="1" max="5" value="1" class="input-container" data-action="update-rows">
+                    <input type="range" id="rowsRange" min="1" max="5" value="1" class="range-input" data-action="update-rows">
+                </div>
+
+                <div class="ct-item">
+                    <label for="extraGridBox" class="green-text">Grid Box</label>
+                    <div class="input-group">
+                        <button class="extra-box-stepper" type="button" id="decreaseGridBox" data-action="decrease-grid-box">-</button>
+                        <input name="extraGridBox" class="extragrid" type="text" id="extraGridBox" class="input-container"  readonly value="1">
+                        <button type="button" class="extra-box-stepper" id="increaseGridBox" data-action="increase-grid-box">+</button>
+                    </div>
+                </div>
+
+                <div class="ct-item">
+                    <label for="gridGapNum" class="soft-purple-text">Grid Gap</label>
+                    <input type="number" id="gridGapNum" min="0" max="100" value="10"  class="input-container" data-action="update-gridgap">
+                    <input type="range" id="gridGapRange" min="0" max="100" value="10" class="range-input" data-action="update-gridgap" >
+                </div>
+                    <!-- Margins -->
+                <div class="ct-item">
+                    <label for="containerMarginNum" class="cool-text">Outer Margin</label>
+                    <input type="number" id="containerMarginNum" min="0" max="500" value="50" class="input-container" data-action="update-outer-margin">
+                    <input type="range" id="containerMarginRange" min="0" max="500" value="50" class="range-input" data-action="update-outer-margin">
+                </div>
+
+                <div class="ct-item">
+                    <label for="topMarginNum" class="red-text">Top Margin</label>
+                    <input type="number" id="topMarginNum" min="0" max="500" value="50" class="input-container" data-action="update-top-margin">
+                    <input type="range" id="topMarginRange" min="0" max="500" value="50" class="range-input" data-action="update-top-margin">
+                </div>
+
+                <div class="ct-item">
+                    <label for="rightMarginNum" class="pink-text">Right Margin</label>
+                    <input type="number" id="rightMarginNum" min="0" max="500" value="50" class="input-container" data-action="update-right-margin">
+                    <input type="range" id="rightMarginRange" min="0" max="500" value="50" class="range-input" data-action="update-right-margin">
+                </div>
+
+                <div class="ct-item">
+                    <label for="bottomMarginNum" class="lime-green-text">Bottom Margin</label>
+                    <input type="number" id="bottomMarginNum" min="0" max="500" value="50" class="input-container" data-action="update-bottom-margin">
+                    <input type="range" id="bottomMarginRange" min="0" max="500" value="50" class="range-input" data-action="update-bottom-margin">
+                </div>
+
+                <div class="ct-item">
+                    <label for="leftMarginNum" class="sky-blue-text">Left Margin</label>
+                    <input type="number" id="leftMarginNum" min="0" max="500" value="50" class="input-container" data-action="update-left-margin">
+                    <input type="range" id="leftMarginRange" min="0" max="500" value="50" class="range-input" data-action="update-left-margin">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="scrollable-area bg-dark-grey">
+    <div class="home-container" id="home-container">
+
+        {% if user.is_authenticated %}
+            <h1 class="workspace-heading">{{ user.username }}'s Base</h1> 
+
+            <!-- Published Layouts Section -->
+            <div class="published">
+                <h2 class="published">Published Designs</h2>
+                {% if live_layouts %}
+                    <div class="base-published-layouts nav" id="published-layouts-list">
+                        {% for layout in live_layouts %}
+                            <div class="published-design">
+                                <div class="thumbnail">
+                                    <h3>{{ layout.name }}</h3>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="base-published-layouts">
+                        <p class="white-text">No published layouts</p>
+                    </div>  
+                {% endif %}
+            </div>
+
+            <!-- Saved Layouts Section -->
+            <div class="saved">
+                <h2>Saved Designs</h2>
+                {% if saved_layouts %}
+                    <div class="saved-layouts" id="saved-layouts">
+                        {% for layout in saved_layouts %}
+                            <div class="saved-design">
+                                <div class="thumbnail">
+                                    <h3>{{ layout.name }}</h3>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="saved-layouts">
+                        <p class="white-text">No saved layouts</p>
+                    </div>  
+                {% endif %}
+            </div>
+
+            <!-- Templates Section -->
+            <div class="templates">
+                <h2>Templates</h2>
+                {% if templates %}
+                    <div class="template-layouts" id="template-layouts">
+                        <div class="template-design">
+                            <a href="/"><div id="template-blank" class="blank-template">Blank</button></div></a>
+                            <h3>Blank</h3>
+                        </div>  
+                        {% for template in templates %}
+                            <div class="template-design">
+                                <div class="thumbnail">
+                                    <h3>{{ template.name }}</h3>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="template-layouts" id="template-layouts">
+                        <p class="white-text">No templates available at this time</p>
+                    </div>
+                {% endif %}
+            </div>
+
+        {% else %}
+            <p>You can access the workspace by logging in or registering.</p>
+            <a href="{% url 'login' %}" class="text-white">Login</a>
+            <a href="{% url 'register' %}" class="text-white">Register</a>
+        {% endif %}
+
+    </div>
+</div>
+
+<script src="{% static 'js/home.js' %}" defer></script>
+
+{% endblock %}

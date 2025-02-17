@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="scrollable-area bg-dark-grey">
+
+    <div class="layout-container" id="layout-container">
+
+        <h1 class="hub-heading">{{ user.username }}'s LayoutHub</h1> 
+    
+        {% if live_layouts %}
+        <div class="published">
+            <h2 class="published">Published designs</h2> 
+
+            <div class="hub-published-layouts nav" id="published-layouts">
+                <ul id="published-layouts-list"> 
+                    {% for layout in live_layouts %}
+                <li>
+                <div class="published-design">
+                    <div class="thumbnail">
+                        <h3>{{ layout.name }}</h3>
+                    </div>
+                </div>
+                <div>Icon to open in new page</div>
+                </li>
+               {% endfor %}
+                </ul> 
+                {% else %}
+        No layouts to load.
+
+        You can access the Hub by logging in or registering.
+            <a href="{% url 'login' %}" class="text-white">Login</a>
+        
+            <a href="{% url 'register' %}" class="text-white">Register</a>
+        
+        {% endif %}
+            </div>  
+           
+        </div>
+       
+    </div>
+{% include 'toptoolbar.html' %}
+<div class="live-container" id="live-container">
+    <div class="toggle-container">
+        <button id="toggle-theme" class="toggle-button" aria-pressed="false" aria-label="Switch to dark mode">
+            
+            <span class="toggle-indicator"></span>
+        </button>
+        <p class="toggle-text" id="toggle-text">Dark / Light</p>
+    </div>
+    
+<div class="containerxx" id="container">
+    <div class="grid-container" id="grid-container"><p class="empty-grid-msg">Select a layout from your published designs to view</p></div>
+</div>
+</div>
+
+</div>
+<script src="{% static 'js/hub.js' %}" defer></script>
+
+{% endblock %}

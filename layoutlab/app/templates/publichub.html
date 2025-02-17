@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="scrollable-area bg-dark-grey text-white">
+
+<div class="layout-container" id="layout-container">
+
+    <h1 class="workspace-heading">{{ profile_user.username }}'s LayoutHub</h1> 
+
+    {% if layouts %}
+    <div class="published">
+        <h2>Published designs</h2>
+        <div class="published-layouts nav" id="published-layouts">
+            <ul>
+            {% for layout in layouts %}
+            <li>
+            <div class="published-design">
+                <div class="thumbnail">
+                    <h3>{{ layout.name }}</h3>
+                </div>
+            </div>
+            <div>Icon to open in new page</div>
+            </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% else %}
+    <p>No live layouts found for this user.</p>
+{% endif %}
+</div>
+
+<div class="container" id="container">
+    <div class="grid-container" id="grid-container"></div>
+</div>
+
+</div>
+
+{% endblock %}
