@@ -648,8 +648,11 @@ function deleteItem(deleteId) {
 
         columnsInput -=1;
         columnsRange -=1;
+        document.getElementById('columns').value = columnsInput; 
+        document.getElementById('columnsRange').value = columnsRange; 
         gridItem.remove();
 
+        
          // Remove previous column classes
     gridContainer.classList.forEach(className => {
         if (className.startsWith('grid-col-')) {
@@ -659,6 +662,7 @@ function deleteItem(deleteId) {
 
     // Add the new class based on the column count
     gridContainer.classList.add(`grid-col-${columnsInput}`);
+    updateGridBoxValue();
 
        console.log(`update: grid-col-${columnsInput}`)
        
