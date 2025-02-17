@@ -1,6 +1,7 @@
 let index = 1;
 const gridContainer = document.querySelector('.grid-container');
 let gridItem = document.getElementById("grid-item");
+const container = document.getElementById('container');
 
 
 function loadMessage() {
@@ -205,10 +206,7 @@ function updateLayoutSizeHeight(event) {
 function updateLayoutSizeFromWidth() {
     const layoutWidthValue = document.getElementById('layoutWidth').value;
 
-    // Update the layoutSizeNum input with the value from layoutWidth
     document.getElementById('layoutSizeNum').value = layoutWidthValue;
-
-    // Update the layoutSizeRange input with the same value
     document.getElementById('layoutSizeRange').value = layoutWidthValue;
 
 }
@@ -216,10 +214,7 @@ function updateLayoutSizeFromWidth() {
 function updateLayoutSizeFromHeight() {
     const layoutHeightValue = document.getElementById('layoutHeight').value;
 
-    // Update the layoutSizeNum input with the value from layoutWidth
     document.getElementById('layoutHeightNum').value = layoutHeightValue;
-
-    // Update the layoutSizeRange input with the same value
     document.getElementById('layoutHeightRange').value = layoutHeightValue;
 }
 
@@ -227,23 +222,32 @@ function updateLayoutSizeFromHeight() {
 function updateLayoutWidth() {
     const layoutSizeNumValue = document.getElementById('layoutSizeNum').value;
     const layoutSizeRangeValue = document.getElementById('layoutSizeRange').value;
-
-    // Use either value (since they should be the same)
     const newValue = layoutSizeNumValue || layoutSizeRangeValue;
 
-    // Update the layoutWidth input with the value from layoutSizeNum or layoutSizeRange
     document.getElementById('layoutWidth').value = newValue;
+
+    if (width === 'auto') {
+        container.style.width = 'auto'; 
+    } else {
+        container.style.width = `${width}`; 
+    }
+
 }
 
 function updateLayoutHeight() {
     const layoutHeightNumValue = document.getElementById('layoutHeightNum').value;
     const layoutHeightRangeValue = document.getElementById('layoutHeightRange').value;
 
-    // Use either value (since they should be the same)
     const newValue = layoutHeightNumValue || layoutHeightRangeValue;
 
-    // Update the layoutWidth input with the value from layoutSizeNum or layoutSizeRange
     document.getElementById('layoutHeight').value = newValue;
+
+    if (height === 'auto') {
+        container.style.height = 'auto'; 
+    } else {
+        container.style.height = `${height}`;
+    }
+
 }
 
 function updatePresetSize() {
@@ -261,13 +265,11 @@ function updatePresetSize() {
         const size = value.replace('screen-', '');
         const height = (9 / 16) * size;
         container.style.width = `${size}px`;
-        container.style.height = 'auto';
-        container.style.border = '1px solid black';
-
+        container.style.height = `${height}px`;
         unit.value = 'px';
         layoutwidth.value = size;
-        layoutheight.value = 'auto';
-        console.log(`Screen size: ${size}px width`);
+        layoutheight.value = height;
+        console.log(`Screen size: ${size}px width. ${height}px height`);
         
     } else if (value.startsWith('print-')) {
         // Handle print sizes
@@ -275,18 +277,14 @@ function updatePresetSize() {
         container.style.width = `${width}mm`;                
         container.style.height = `${height}mm`;
         container.style.minHeight = `${height}mm`;
-        container.style.border = '1px solid black';
-
         unit.value = 'mm';
         layoutwidth.value = width;
         layoutheight.value = height;
         console.log(`Print size: ${width}mm × ${height}mm`);
     }
 
- /*  
-updateLayoutSizeFromWidth();
-updateLayoutSizeFromHeight();
-*/
+
+
 }
 
 
@@ -296,17 +294,27 @@ function getContainerSize() {
     const container = document.querySelector('.container');
     const computedStyle = window.getComputedStyle(container);
     
-    // Get dimensions from computed styles
-    const width = parseFloat(computedStyle.width);  // Convert from 'px' to number
+    const width = parseFloat(computedStyle.width); 
     const height = parseFloat(computedStyle.height);
     
     const layoutWidth = document.getElementById('layoutWidth');
     const layoutHeight = document.getElementById('layoutHeight');
     
-    // Set numeric value for input
     layoutWidth.value = width;
     layoutHeight.value = height;
-    console.log(`width:${width}, height: ${height}`);
+
+    if (height === 'auto') {
+        container.style.height = 'auto'; 
+    } else {
+        container.style.height = `${height}`;
+    }
+
+    if (width === 'auto') {
+        container.style.width = 'auto'; 
+    } else {
+        container.style.width = `${width}`; 
+    }
+
 
     return { width, height };
     
@@ -632,7 +640,29 @@ document.querySelector('.grid-container').addEventListener('click', (event) => {
 function deleteItem(deleteId) {
     const gridItem = document.getElementById(`box-${deleteId}`);
     if (gridItem) {
+      
+        let columnsInput = parseInt(document.getElementById('columns').value, 10) || 1;
+        let columnsRange = parseInt(document.getElementById('columnsRange').value, 10) || 1;
+
+        const rows = parseInt(document.getElementById('rows').value, 10) || 1;
+
+        columnsInput -=1;
+        columnsRange -=1;
         gridItem.remove();
+
+         // Remove previous column classes
+    gridContainer.classList.forEach(className => {
+        if (className.startsWith('grid-col-')) {
+            gridContainer.classList.remove(className);
+        }
+    });
+
+    // Add the new class based on the column count
+    gridContainer.classList.add(`grid-col-${columnsInput}`);
+
+       console.log(`update: grid-col-${columnsInput}`)
+       
+
     } else {
         return
     }
@@ -2186,7 +2216,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Check if the button exists
     if (!saveButton) {
-        console.log('Save Template button not found on the page.');
         return; // Exit if the button is not found
     }
 
@@ -2359,73 +2388,6 @@ function loadGridConfiguration(configuration) {
     });
 }
 
-
-// Save to PDF Button event
-document.getElementById('saveAsPdfButton').addEventListener('click', () => {
-    convertToPDF();
-    addLayoutLabFooter(gridContainer);
-});
-
-/* original
-function convertToPDF() {
-    const gridContainerElement = document.getElementById('grid-container');
-    const randomNumber = Math.floor(Math.random() * 1000000);
-    const filename = `layoutlab-design-${randomNumber}.pdf`;
-
-    const options = {
-        margin: 10,
-        filename: filename, 
-        image: { type: 'jpeg', quality: 0.98 }, 
-        html2canvas: { scale: 2 }, 
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } 
-    };
-
-    html2pdf().from(gridContainerElement).set(options).save();
-}
-*/
-
-
-function convertToPDF() {
-    const gridContainerElement = document.getElementById('container');
-    const randomNumber = Math.floor(Math.random() * 1000000);
-    const filename = `layoutlab-design-${randomNumber}.pdf`;
-
-    const options = {
-        margin: 10,
-        filename: filename,
-        image: {
-            type: 'jpeg',
-            quality: 0.98
-        },
-        html2canvas: {
-            scale: 2
-        },
-        jsPDF: {
-            unit: 'mm',
-            format: 'a4',
-            orientation: 'portrait',
-        },
-    };
-
-    const author = "layoutlab.slammin-design.co.uk";
-    const keywords = "This layout was created using LayoutLab";
-    const title = "A LayoutLab Creation";
-
-    html2pdf()
-        .from(gridContainerElement)
-        .set(options)
-        .toPdf()
-        .get('pdf')
-        .then(function (pdf) {
-            pdf.setProperties({
-                title: title,
-                subject: 'Generated LayoutLab Design PDF',
-                author: author,
-                keywords: keywords,
-            });
-        })
-        .save();
-}
 
 
 /*lg

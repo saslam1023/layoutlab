@@ -3,15 +3,16 @@
         <div class="ct-nav">
             <div class="ct-row">
                 <div class="ct-row">
+                   
                     <!-- Title -->
                 <div class="ct-item toolbar-layout-name">
                     <label for="layoutName" class="blue-text">Layout Name</label>
                     <input type="text" id="layoutName" value="Untitled-layout" class="input-container-text" data-action="layoutName">
-                </div>
+                
                 <!-- Preset -->
                 <div class="ct-item">
-                    <label for="presetSelect" class="visually-hidden">Preset Layout</label>
-                    <select id="presetSelect" onchange="updatePresetSize()">
+                    <label for="presetSelect" class="blue-text">Preset Layout</label>
+                    <select id="presetSelect" class="input-container-text" onchange="updatePresetSize()">
                         <!-- Screen Sizes -->
                         <option value="screen-600">Small (600px)</option>
                         <option value="screen-800">Medium (800px)</option>
@@ -25,7 +26,7 @@
                         <option value="print-215.9-279.4">Letter (215.9mm × 279.4mm)</option>
                         <option value="print-215.9-355.6">Legal (215.9mm × 355.6mm)</option>
                     </select>
-                    
+                    </div>
                 </div>
                     <!-- Container Size -->
                     
@@ -34,25 +35,21 @@
                         <input type="number" id="layoutSizeNum" value="1" min="1" max="5000"  class="input-container" data-action="update-layout-size">
                         <input type="range" id="layoutSizeRange" value="1" min="1" max="5000" class="range-input" data-action="update-layout-size">
                     </div>
-                    <div class="ct-item">
-                            <label for="unitSelect" class="yellow-text">Unit</label>
-                                <select id="unitSelect" class="unit" onchange="updateUnit()">
-                                <option value="px">px</option> 
-                                <option value="%">%</option>
-                                <option value="em">em</option>
-                                <option value="rem">rem</option>
-                                <option value="mm">mm</option>
-                                <option value="cm">cm</option>
-    
-                            </select>
-                        </div>
+                
                         <div class="ct-item">
                         <label for="layoutHeightNum" class="yellow-text">Layout Height</label>
                         <input type="number" id="layoutHeightNum" value="1" min="1" max="5000"  class="input-container" data-action="update-layout-hsize">
                         <input type="range" id="layoutHeightRange" value="1" min="1" max="5000"  class="range-input" data-action="update-layout-hsize">
                     </div>
-                  
-                    
+                    <div class="ct-item">
+                        <label for="unitSelect" class="yellow-text">Unit</label>
+                            <select id="unitSelect" class="unit" onchange="updateUnit()">
+                            <option value="px">px</option> 
+                            <option value="%">%</option>
+                            <option value="em">em</option>
+                            <option value="rem">rem</option>
+                        </select>
+                    </div>
                     
                     <div class="hide">
                             <label for="layoutWidth" class="yellow-text hide">Layout Width</label>
